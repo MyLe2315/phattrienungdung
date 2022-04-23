@@ -1,4 +1,13 @@
-
+<?php
+session_start();
+if (isset($_SESSION['id']) && isset($_SESSION['mataikhoan']) && isset($_SESSION['matkhau'])) {
+	include("class/classlogin.php");
+	$q = new login();
+	$q->confirmlogin($_SESSION['id'], $_SESSION['mataikhoan'], $_SESSION['matkhau']);
+} else {
+	header("location:login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,7 +84,31 @@
                     <a href=""><p>Xem điểm</p></a>
                     <a href=""> <p>Làm bài kiểm tra</p></a>
                     <a href=""><p>Nộp bài kiểm tra</p></a>
-                    <a href=""><p>Xem đánh giá</p></a>                          
+                    <a href=""><p>Xem đánh giá</p></a>   
+                     <form action="" method="post" class="mt-4">
+            <div class="form-group" >
+                 <input type="submit" name="button" class="btn btn-primary btn-block" id="button" value="Đăng xuất">
+             </div>
+             <?php
+    switch($_POST['button'])
+    {
+        case 'Đăng xuất':
+            {
+                session_start(); 
+                
+                if (isset($_SESSION['mataikhoan']))
+                {
+                    unset($_SESSION['mataikhoan']);
+                    unset($_SESSION['matkhau']);
+                    unset($_SESSION['id']);
+                    header('location:index.php');
+                }
+                break;
+            }
+    }
+     
+ ?>
+               </form>                       
                 </div>
                 <div class="col-9">
                     abcdef

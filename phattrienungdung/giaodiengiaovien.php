@@ -1,4 +1,13 @@
-
+<?php
+session_start();
+if (isset($_SESSION['id']) && isset($_SESSION['mataikhoan']) && isset($_SESSION['matkhau'])) {
+	include("class/classlogin.php");
+	$q = new login();
+	$q->confirmlogin($_SESSION['id'], $_SESSION['mataikhoan'], $_SESSION['matkhau']);
+} else {
+	header("location:login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,20 +74,53 @@
                 </li>
             </ul>
         </div>
-        <div class="container">
+        
+       <div class="container">
             <div class="row border" style="height:auto;">
                 <div class="col-3 border-right" >
              		<a href="#"><i  class="fa fa-fw fa-user" style="margin-top: 20px;" ></i>ADMIN</a><br> <br>
-                    <a href="" class="btn btn-primary active btn-block" role="button" data-bs-toggle="button" aria-pressed="true" ><p>Danh sách lớp</p></a>
-                    <a href=""class="btn btn-primary btn-block" role="button" data-bs-toggle="button"> <p>Danh sách học sinh</p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Tạo bài kiểm tra</p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Thống kê bài kiểm tra</p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Chấm nhập điểm, thêm đánh giá </p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Tạo câu hỏi</p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p></p>Chỉnh sửa điểm</a>
+                    <a href="1" class="btn btn-primary active btn-block" role="button" data-bs-toggle="button" aria-pressed="true" ><p>Danh sách học sinh</p></a>
+                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"> <p>Tạo bài kiểm tra</p></a>
+                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Thống kê bài kiểmtra </p></a>
+                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Chấm nhập điểm, thêm đánh giá</p></a>
+                     <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Tạo câu hỏi</p></a>
+                      <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Chỉnh sửa điểm</p></a>
+            <form action="" method="post" class="mt-4">
+            <div class="form-group" >
+                 <input type="submit" name="button" class="btn btn-primary btn-block" id="button" value="Đăng xuất">
+             </div>
+             <?php
+    switch($_POST['button'])
+    {
+        case 'Đăng xuất':
+            {
+                session_start(); 
+                
+                if (isset($_SESSION['mataikhoan']))
+                {
+                    unset($_SESSION['mataikhoan']);
+                    unset($_SESSION['matkhau']);
+                    unset($_SESSION['id']);
+                    header('location:index.php');
+                }
+                break;
+            }
+    }
+     
+ ?>
+               </form>
                 </div>
                 <div class="col-9">
-                    aaa
+                   <?php
+                   switch($_GET['id'])
+                   {
+                       case '1':
+                        {
+                            echo 'aaa';
+                        }
+                        break;
+                   }
+                   ?>
                 </div>
             </div>
         </div>
@@ -104,6 +146,6 @@
             </div>  
             
         </div>
-    </div>
+    </div>       
 </body>
 </html>

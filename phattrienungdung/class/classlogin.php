@@ -29,10 +29,15 @@ class login
 			{
 				$id=$row['id']; 
 				$mataikhoan=$row['mataikhoan']; 
-				$pass=$row['matkhau']; 
+				$matkhau=$row['matkhau']; 
 				$magiaovien=$row['magiaovien']; 
 				$mahocsinh=$row['mahocsinh'];
-				$ten=$row['tentaikhoan']; 				
+				$ten=$row['tentaikhoan'];
+				session_start();
+					$_SESSION['id']=$id;
+					$_SESSION['mataikhoan']=$user;
+					$_SESSION['matkhau']=$pass;
+				
 			}
 			return 1;
 		  }
@@ -54,10 +59,15 @@ class login
 			{
 				$id=$row['id']; 
 				$mataikhoan=$row['mataikhoan']; 
-				$pass=$row['matkhau']; 
+				$matkhau=$row['matkhau'];  
 				$magiaovien=$row['magiaovien']; 
 				$mahocsinh=$row['mahocsinh']; 	
-				$ten=$row['tentaikhoan']; 		
+				$ten=$row['tentaikhoan']; 	
+				session_start();
+					$_SESSION['id']=$id;
+					$_SESSION['mataikhoan']=$user;
+					$_SESSION['matkhau']=$pass;
+	
 			}
 			return 1;
 		  }
@@ -79,11 +89,16 @@ class login
 			{
 				$id=$row['id']; 
 				$mataikhoan=$row['mataikhoan']; 
-				$pass=$row['matkhau']; 
+				$matkhau=$row['matkhau']; 
 				$magiaovien=$row['magiaovien']; 
 				$mahocsinh=$row['mahocsinh']; 
 				$ten=$row['tentaikhoan']; 
-				$maqtvct=$row['maqtvct'];			
+				$maqtvct=$row['maqtvct'];	
+				session_start();
+					$_SESSION['id']=$id;
+					$_SESSION['mataikhoan']=$user;
+					$_SESSION['matkhau']=$pass;
+			
 			}
 			return 1;
 		  }
@@ -92,18 +107,17 @@ class login
 			return 0;
 		}
 	}
-	
-		public function confirmlogin($user,$pass)
+	function confirmlogin($id,$user,$pass)
 	{
-		$link= $this->connect();
-		$sql="select id, mataikhoan, matkhau,  magiaovien, mahocsinh,tentaikhoan, maqtvct from taikhoan where mahocsinh='$user' and matkhau='$pass' limit 1 "; 
-
-		$ketqua = mysql_query($sql, $link);
-		 $i=mysql_num_rows($ketqua);
-		  if ($i!=1)
-		  {
-				header('location:login.php');
-		  }
+		$link=$this->connect();
+		$sql="select id from taikhoan where id='$id' and mataikhoan='$user' and matkhau='$pass' limit 1";	
+		$ketqua=mysql_query($sql,$link);
+		$i=mysql_num_rows($ketqua);
+		if($i!=1)
+		{
+			header("location:login.php");	
+		}
 	}
+		
 }
 ?>
