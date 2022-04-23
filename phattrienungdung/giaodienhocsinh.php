@@ -7,6 +7,40 @@ if (isset($_SESSION['id']) && isset($_SESSION['mataikhoan']) && isset($_SESSION[
 } else {
 	header("location:login.php");
 }
+include('class/data.php');
+$amount = 1;
+if (isset($_COOKIE['mataikhoan'])) {
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $result = mysqli_query($connect, "SELECT * FROM taikhoan WHERE id = '$id'"); // lấy của products
+       
+        $row = mysqli_fetch_array($result);
+       
+        if(isset($_SESSION['ma'])){
+            $cart = $_SESSION['ma'];
+            if(array_key_exists($id,$cart)){
+                $amount = (int)$_SESSION['ma'][$id]['mataikhoan'];
+            }
+        }
+       
+    }
+} else {
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $result = mysqli_query($connect, "SELECT * FROM taikhoan WHERE id = '$id'");
+        
+       
+        $row = mysqli_fetch_array($result);
+        $num_of_product = 0; 
+        if(isset($_SESSION['ma'])){
+            $cart = $_SESSION['ma'];
+            if(array_key_exists($id,$cart)){
+                $amount = (int)$_SESSION['ma'][$id]['mataikhoan'];
+              
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +72,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['mataikhoan']) && isset($_SESSION[
             </div>
             <form action="" method="post">
             <div class="form-group" >
-                 <input type="submit" name="button" class="button" id="button" value="" />
+                 <input type="submit" name="button" class="button" id="button" value="<?php echo $row['tentaikhoan'] ?>" />
                </div>
                </form>
         </div>
@@ -78,7 +112,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['mataikhoan']) && isset($_SESSION[
             <div class="row border" style="height:460px;">
                 <div class="col-3 border-right" >
                     
-                    <a href="#"><i  class="fa fa-fw fa-user" ></i>Học sinh</a>
+                    <a href="#"><i  class="fa fa-fw fa-user" ></i><?php echo $row['tentaikhoan'] ?></a>
                     <br>
                     <br>
                     <a href=""><p>Xem điểm</p></a>

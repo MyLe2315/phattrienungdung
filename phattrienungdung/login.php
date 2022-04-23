@@ -42,6 +42,10 @@ $p=new login();
                   {
                       case'Đăng nhập':
                       {
+						   session_start();
+						   if(isset($_SESSION['id'])){
+           						 $id = $_SESSION['id'];
+						   }
                           $user=$_REQUEST['name'];
                           $pass=$_REQUEST['password'];
                           if($user!='' && $pass!='')
@@ -50,21 +54,21 @@ $p=new login();
                               {
 								  
 								  {
-                                 	 header('location:giaodiengiaovien.php');
+                                 	 header('location:giaodiengiaovien.php?id='.$id);
 								  }
                               }
 							  if ($p->myloginhs($user,$pass)==1)
                               {
 								  
 								  {
-                                 	 header('location:giaodienhocsinh.php');
+                                 	 header('location:giaodienhocsinh.php?id='.$id);
 								  }
                               }
 							   if ($p->myloginqtv($user,$pass)==1)
                               {
 								  
 								  {
-                                 	 header('location:giaodienqtvcaptruong.php');
+                                 	 header('location:giaodienqtvcaptruong.php?id='.$id);
 								  }
                               }
                               else
