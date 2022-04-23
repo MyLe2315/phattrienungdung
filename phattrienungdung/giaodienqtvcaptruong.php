@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,16 +68,22 @@
             <div class="row border" style="height:auto;">
                 <div class="col-3 border-right" >
              		<a href="#"><i  class="fa fa-fw fa-user" style="margin-top: 20px;" ></i>ADMIN</a><br> <br>
-                    <a href="" class="btn btn-primary active btn-block" role="button" data-bs-toggle="button" aria-pressed="true" ><p>Danh sách lớp</p></a>
-                    <a href=""class="btn btn-primary btn-block" role="button" data-bs-toggle="button"> <p>Danh sách học sinh</p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Tạo bài kiểm tra</p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Thống kê bài kiểm tra</p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Chấm nhập điểm, thêm đánh giá </p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Tạo câu hỏi</p></a>
-                    <a href="" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p></p>Chỉnh sửa điểm</a>
+                    <a href="giaodienqtvcaptruong.php?id=1" class="btn btn-primary active btn-block" role="button" data-bs-toggle="button" aria-pressed="true" ><p>Quản lý giáo viên</p></a>
+                    <a href="giaodienqtvcaptruong.php?id=2" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"> <p>Cấp tài khoản</p></a>
+                    <a href="giaodienqtvcaptruong.php?id=3" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Quản lý danh sách lớp</p></a>
+                    <a href="giaodienqtvcaptruong.php?id=4" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Quản lý học sinh</p></a>
                 </div>
                 <div class="col-9">
-                    aaa
+                   <?php
+                   switch($_GET['id'])
+                   {
+                       case '1':
+                        {
+                            echo 'aaa';
+                        }
+                        break;
+                   }
+                   ?>
                 </div>
             </div>
         </div>

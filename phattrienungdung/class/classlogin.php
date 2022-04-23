@@ -66,7 +66,7 @@ class login
 			return 0;
 		}
 	}
-	public function myloginhqtv($user,$pass)
+	public function myloginqtv($user,$pass)
 	{
 		$pass=md5($pass);
 		$link= $this->connect(); 
@@ -93,7 +93,17 @@ class login
 		}
 	}
 	
-		
+		public function confirmlogin($user,$pass)
+	{
+		$link= $this->connect();
+		$sql="select id, mataikhoan, matkhau,  magiaovien, mahocsinh,tentaikhoan, maqtvct from taikhoan where mahocsinh='$user' and matkhau='$pass' limit 1 "; 
 
+		$ketqua = mysql_query($sql, $link);
+		 $i=mysql_num_rows($ketqua);
+		  if ($i!=1)
+		  {
+				header('location:login.php');
+		  }
+	}
 }
 ?>

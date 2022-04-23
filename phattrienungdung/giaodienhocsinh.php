@@ -1,8 +1,4 @@
-<?php
-include("class/classlogin.php");
-$p=new login();
 
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

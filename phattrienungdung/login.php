@@ -60,6 +60,13 @@ $p=new login();
                                  	 header('location:giaodienhocsinh.php');
 								  }
                               }
+							   if ($p->myloginqtv($user,$pass)==1)
+                              {
+								  
+								  {
+                                 	 header('location:giaodienqtvcaptruong.php');
+								  }
+                              }
                               else
                               {
                                   echo 'Đăng nhập không thành công';
@@ -76,7 +83,7 @@ $p=new login();
  				?>
             </form>
             <div class="mt-4" style="color:#039">
-                <a href="index.html" class="backhome text-primary">Quay lại trang chủ</a>
+                <a href="index.php" class="backhome text-primary ">Quay lại trang chủ</a>
                 
            </div>
         </div>
