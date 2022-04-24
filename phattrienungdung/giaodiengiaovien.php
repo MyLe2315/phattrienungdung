@@ -12,7 +12,7 @@ $amount = 1;
 if (isset($_COOKIE['mataikhoan'])) {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $result = mysqli_query($connect, "SELECT * FROM taikhoan WHERE id = '$id'");
+        $result = mysqli_query($connect, "SELECT * FROM taikhoan WHERE mataikhoan = '$id'");
        
         $row = mysqli_fetch_array($result);
        
@@ -27,7 +27,7 @@ if (isset($_COOKIE['mataikhoan'])) {
 } else {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $result = mysqli_query($connect, "SELECT * FROM taikhoan WHERE id = '$id'");
+        $result = mysqli_query($connect, "SELECT * FROM taikhoan WHERE mataikhoan = '$id'");
         
        
         $row = mysqli_fetch_array($result);

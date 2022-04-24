@@ -118,6 +118,6 @@ class login
 			header("location:login.php");	
 		}
 	}
-		
+	
 }
 ?>

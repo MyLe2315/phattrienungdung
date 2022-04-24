@@ -44,7 +44,9 @@ $p=new login();
                       {
 						   session_start();
 						   if(isset($_SESSION['id'])){
-           						 $id = $_SESSION['id'];
+           						$id = $_SESSION['id'];
+								$_SESSION['mataikhoan']=$user;
+								$_SESSION['matkhau']=$pass;
 						   }
                           $user=$_REQUEST['name'];
                           $pass=$_REQUEST['password'];
@@ -54,21 +56,21 @@ $p=new login();
                               {
 								  
 								  {
-                                 	 header('location:giaodiengiaovien.php?id='.$id);
+                                 	 header('location:giaodiengiaovien.php?id='.$user);
 								  }
                               }
 							  if ($p->myloginhs($user,$pass)==1)
                               {
 								  
 								  {
-                                 	 header('location:giaodienhocsinh.php?id='.$id);
+                                 	 header('location:giaodienhocsinh.php?id='.$user);
 								  }
                               }
 							   if ($p->myloginqtv($user,$pass)==1)
                               {
 								  
 								  {
-                                 	 header('location:giaodienqtvcaptruong.php?id='.$id);
+                                 	 header('location:giaodienqtvcaptruong.php?id='.$user);
 								  }
                               }
                               else
