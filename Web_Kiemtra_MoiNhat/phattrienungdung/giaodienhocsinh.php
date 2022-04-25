@@ -90,6 +90,21 @@ if (isset($_COOKIE['mataikhoan'])) {
                 </div>
             </form>
         </div>
+        <?php
+                        switch ($_POST['button']) {
+                            case 'Đăng xuất': {
+                                    session_start();
+
+                                    if (isset($_SESSION['mataikhoan'])) {
+                                        unset($_SESSION['mataikhoan']);
+                                        unset($_SESSION['matkhau']);
+                                        unset($_SESSION['id']);
+                                        header('location:index.php');
+                                    }
+                                    break;
+                                }
+                        }
+?>
         <div class="menu sticky-top">
             <ul>
                 <li class="abc">
@@ -150,22 +165,7 @@ if (isset($_COOKIE['mataikhoan'])) {
                         <div class="form-group">
                             <input type="submit" name="button" class="btn btn-primary btn-block" id="button" style="font-size: 15px;" value="Đăng xuất">
                         </div>
-                        <?php
-                        switch ($_POST['button']) {
-                            case 'Đăng xuất': {
-                                    session_start();
 
-                                    if (isset($_SESSION['mataikhoan'])) {
-                                        unset($_SESSION['mataikhoan']);
-                                        unset($_SESSION['matkhau']);
-                                        unset($_SESSION['id']);
-                                        header('location:index.php');
-                                    }
-                                    break;
-                                }
-                        }
-
-                        ?>
                     </form>
                 </div>
 

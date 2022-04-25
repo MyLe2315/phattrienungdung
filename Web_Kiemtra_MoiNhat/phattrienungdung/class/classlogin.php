@@ -11,7 +11,7 @@ class login
 			}
 			else
 			{
-				mysql_select_db("webkiemtratructuyen"); 
+				mysql_select_db("web11"); 
 				mysql_query("SET NAMES UTF8"); 
 				return $con;
 			}

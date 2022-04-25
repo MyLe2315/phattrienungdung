@@ -77,7 +77,7 @@ $p=new login();
                               {
 								  
 								  {
-                                 	 header('location:giaodienquantri.php?id='.$id);
+                                 	 header('location:giaodienquantri.php?id='.$user);
 								  }
                               }
                               else

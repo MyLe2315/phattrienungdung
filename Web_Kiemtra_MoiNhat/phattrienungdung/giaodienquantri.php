@@ -69,7 +69,7 @@ if (isset($_COOKIE['mataikhoan'])) {
             </div>
             <form action="" method="post">
             <div class="form-group" >
-                 <input type="submit" name="button" class="button" id="button" value="<?php echo $row['tentaikhoan'] ?>">
+                 <input type="submit" name="button" class="button" id="button" value="<?php echo $row['tentaikhoan']?>">
                </div>
                </form>
         </div>

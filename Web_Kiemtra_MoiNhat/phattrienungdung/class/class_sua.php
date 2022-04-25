@@ -11,7 +11,7 @@ class quanli
 			}
 			else
 			{
-				mysql_select_db("webkiemtratructuyen"); 
+				mysql_select_db("web11"); 
 				mysql_query("SET NAMES UTF8"); 
 				return $con;
 			}
@@ -108,5 +108,56 @@ public function themxoasua($sql)
 				echo 'Đang cập nhật dữ liệu...';
 			
 			}
-		 }	}
+		 }
+		 public function load_ds_lop($sql)
+	{
+		$link= $this->connect(); 
+		$ketqua=mysql_query($sql, $link);
+		mysql_close($link);
+		$i=mysql_num_rows($ketqua);
+		  if ($i>0)
+		  {
+			 
+			  echo'<table width="1200" border="1" style="margin:20px 0px 20px 0px" align="center" cellpadding="2" cellspacing="0">
+						  <tr>
+							<td width="52" align="center"><strong>STT</strong></td>
+							<td width="50" align="center"><strong>MÃ LỚP</strong></td>
+							<td width="100" align="center"><strong>MÃ KHỐI</strong></td>
+							<td width="100" align="center"><strong>TÊN LỚP</strong></td>
+							
+						
+						  </tr>';
+				$dem=1;
+				session_start();
+				$mataikhoan=$_SESSION['mataikhoan'];
+			while ($row = mysql_fetch_array($ketqua))
+			{	
+				$dem=$dem++;
+				$stt=$dem;
+				$malop=$row['malop'];
+				$makhoi=$row['makhoi'];
+				$tenlop=$row['tenlop']; 
+				
+
+				echo' </tr>
+						  <td align="center"align="miđle"><a style=" text-decoration: none;" href="?id='.$mataikhoan.'&cn=3&malop='.$malop.'">'.$dem.'</a></td>
+						  <td align="center" align="middle"><a  style=" text-decoration: none;"href="?id='.$mataikhoan.'&cn=3&malop='.$malop.'">'.$malop.'</a></td>
+						  <td align="center" align="middle"><a style=" text-decoration: none;" href="?id='.$mataikhoan.'&cn=3&malop='.$malop.'">'.$makhoi.'</a></td>
+						  <td align="center" align="middle"><a style=" text-decoration: none;" href="?id='.$mataikhoan.'&cn=3&malop='.$malop.'">'.$tenlop.'</a></td>
+
+						  </tr>';
+						  
+				$dem++;
+				
+			}
+			
+			echo'</table>';
+		  }
+			else
+			{
+				echo 'Đang cập nhật dữ liệu...';
+			
+			}
+		 }	
+			}
 ?>

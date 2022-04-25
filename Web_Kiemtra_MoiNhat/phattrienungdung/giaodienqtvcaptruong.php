@@ -113,7 +113,7 @@ include("class/class_sua.php");
             <div class="row border" style="height:auto;">
                 <div class="col-2 border-right" >
                 <a href="#"><i  class="fa fa-fw fa-user" style="margin-top: 20px;" ></i><?php echo $row['tentaikhoan'] ?></a><br> <br>
-                    <a href="giaodienqtvcaptruong.php?id=<?php echo $row['mataikhoan']?>&cn=1" class="btn btn-primary active btn-block" role="button" data-bs-toggle="button" aria-pressed="true" ><p>Quản lý giáo viên</p></a>
+                    <a href="giaodienqtvcaptruong.php?id=<?php echo $row['mataikhoan']?>&cn=1" class="btn btn-primary  btn-block" role="button" data-bs-toggle="button" aria-pressed="true" ><p>Quản lý giáo viên</p></a>
                     <a href="giaodienqtvcaptruong.php?id=<?php echo $row['mataikhoan']?>&cn=2" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"> <p>Cấp tài khoản</p></a>
                     <a href="giaodienqtvcaptruong.php?id=<?php echo $row['mataikhoan']?>&cn=3" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Quản lý danh sách lớp</p></a>
                     <a href="giaodienqtvcaptruong.php?id=<?php echo $row['mataikhoan']?>&cn=4" class="btn btn-primary btn-block" role="button" data-bs-toggle="button"><p>Quản lý học sinh</p></a>
@@ -148,6 +148,11 @@ include("class/class_sua.php");
                      if (isset($_REQUEST['magv']))
                      {
                          $layid=$_REQUEST['magv'];
+                     }
+                     $layid_lop=0;
+                     if(isset($_REQUEST['malop']))
+                     {
+                        $layid_lop=$_REQUEST['malop'];
                      }
                      session_start();
                      $mataikhoan=$_SESSION['mataikhoan'];
@@ -251,6 +256,86 @@ include("class/class_sua.php");
                 break;
 			}
 		}
+        switch($_POST['nut'])
+{
+    case 'Thêm lớp':
+        {
+            $malop=$_REQUEST['malop'];
+            $tenlop=$_REQUEST['tenlop'];
+            $makhoi=$_REQUEST['makhoi'];
+            
+           
+                if($malop && $tenlop && $makhoi  !='')
+                {
+                       if($m->themxoasua("INSERT INTO lophoc(malop,makhoi,tenlop) VALUES('$malop',' $makhoi', '$tenlop')")==1)
+                    {
+                        echo 'Thêm lớp thành công';
+                        header('location:giaodienqtvcaptruong.php?id='.$mataikhoan.'&cn=3');
+                    }
+                    else
+                    {
+                        echo'Thêm lớp không thành công.';
+                    }  
+                }
+                else 
+                {
+                   echo 'Vui lòng điền đầy đủ thông tin';
+                }
+                
+
+            break;
+             
+        }
+    case 'Xoá lớp':
+            {
+                
+                $idxoa_lop=$_REQUEST['txtidlop'];
+        if($idxoa_lop>0)
+        {
+            if($m->themxoasua("delete from lophoc where malop='$idxoa_lop' limit 1")==1)
+            {
+                
+                header ('location:giaodienqtvcaptruong.php?id='.$mataikhoan.'&cn=3');
+            }
+            else
+            {
+                echo'Xoá không thành công. ';
+            }
+        }
+        else
+        {
+            echo'vui lòng chọn lớp cần xoá';
+        }
+        break;
+            }
+    case 'Sửa lớp':
+                {
+                    
+                    $idsua_lop=$_REQUEST['txtidlop'];
+                    $malop=$_REQUEST['malop'];
+                    $makhoi=$_REQUEST['makhoi'];
+                    $tenlop=$_REQUEST['tenlop'];
+                   
+                    
+                    if($idsua_lop>0)
+                    {
+                        if($m->themxoasua("UPDATE lophoc SET malop='$malop',makhoi='$makhoi',tenlop='$tenlop' WHERE malop='$idsua_lop' LIMIT 1")==1)
+                        {
+                            echo 'Sửa thành công';
+                            header ('location:giaodienqtvcaptruong.php?id='.$mataikhoan.'&cn=3');
+                        }
+                        else
+                        {
+                            echo'Sửa không thành công';
+                        }
+                    }
+                    else
+                    {
+                        echo'Vui lòng chọn lớp cần sửa';
+                    }
+                    break;
+                }
+}
                    switch($_GET['cn'])
                    {
                        case '1':
@@ -318,12 +403,53 @@ include("class/class_sua.php");
                 
            
 		
-        
+        }
         $m->load_ds_giaovien("select * from giaovien order by magiaovien asc");
-     }
-                        break;
+        echo '</form>';
+        break;
+     
+     case '3':
+        {
+            echo '<form action="" method="post" enctype="multipart/form-data" name="myfm" id="myfm">
+                            <table width="800" border="1" align="center" cellpadding="5" cellspacing="0">
+                              <tr>
+                                <td colspan="2" align="center" valign="middle">QUẢN LÝ DANH SÁCH LỚP</td>
+                              </tr>
+                              <tr>
+                                <td width="173" align="center" valign="middle">Khối(từ 6 đến 9)</td>
+                                <td style="padding:10px" width="601" align="left" valign="middle">
+                                <label for="makhoi"></label>
+                                <input name="makhoi" type="number" min="6" max="9" id="makhoi" value="';echo $m->laycot("select makhoi from lophoc where malop='$layid_lop' limit 1");echo'" />
+                                <label for="txtidlop"></label>
+                                <input name="txtidlop" type="hidden" id="txtidlop" value="'.$layid_lop.'" /></td>
+                              </tr>
+                              <tr>
+                                <td align="center" valign="middle">Mã lớp</td>
+                                <td style="padding:10px" align="left" valign="middle"><label for="malop"></label>
+                                <input name="malop" type="text" id="malop" value="';echo $m->laycot("select malop from lophoc where malop='$layid_lop' limit 1");echo'" /></td>
+                              </tr>
+                              <tr>
+                                <td align="center" valign="middle">Tên lớp</td>
+                                <td style="padding:10px" align="left" valign="middle"><label for="tenlop"></label>
+                                <input name="tenlop" type="text" id="tenlop" value="';echo $m->laycot("select tenlop from lophoc where malop='$layid_lop' limit 1");echo'" /></td>
+                              </tr>
+                               <tr>
+                                <td style="padding:10px" colspan="2" align="center" valign="middle"><label for="">
+                                  <input type="submit" name="nut" id="nut" value="Thêm lớp" />
+                                  <input type="submit" name="nut" id="nut" value="Xoá lớp" />
+                                  <input type="submit" name="nut" id="nut" value="Sửa lớp" />
+                                  <input type="reset" name="nut" id="nut" value="Hủy" />
+                                  <input type="submit" name="nut" id="nut" value="Quay về trang chủ" />
+                                </label></td>
+                              </tr>
+                            </table>';
+
+}
+ $m->load_ds_lop("select * from lophoc order by makhoi asc");
+                     echo '</form>';
+                    break;             
                    }
-                   echo '</form>';
+                   
 ?>
     
                 </div>
